@@ -9,22 +9,26 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Learning assessment: Write a named code chunk that creates a dataframe comprised of: a numeric variable containing a random sample of size 500 from a normal variable with mean 1; a logical vector indicating whether each sampled value is greater than zero; and a numeric vector containing the absolute value of each element. Then, produce a histogram of the absolute value variable just created. Add an inline summary giving the median value rounded to two decimal places. What happens if you set eval = FALSE to the code chunk? What about echo = FALSE?
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+**The chunk below creates a datafram comprised of a numeric variable containing a random sample of size 500 from a normal variable with mean 1; a logical vector indicating whether each sampled value is greater than zero; and a numeric vector containing the absolute value of each element.Then, it produces a histogram of the absolute value variable just created with an inline summary giving the median value rouded to two decimal places.**
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r Learning Assessment1, echo = FALSE}
+library(tidyverse)
 
-```{r cars}
-summary(cars)
+assessment_df = tibble(
+  num_vec = rnorm(500, mean = 1),
+  log_vec = num_vec > 0,
+  abs_vec = abs(num_vec)
+)
+
+
+ggplot(assessment_df, aes(x = abs_vec)) + geom_histogram()
+
+medium_assessment = median(pull(assessment_df,num_vec))
 ```
+The median of the variable containing absolute values is 
+`r round(medium_assessment, digits = 2)`.
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
